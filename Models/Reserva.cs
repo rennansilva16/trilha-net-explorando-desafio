@@ -1,3 +1,5 @@
+using System.Net.Security;
+
 namespace DesafioProjetoHospedagem.Models
 {
     public class Reserva
@@ -17,7 +19,7 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
             // *IMPLEMENTE AQUI*
-            if (true)
+            if (hospedes.Count <= Suite.Capacidade)
             {
                 Hospedes = hospedes;
             }
@@ -25,6 +27,7 @@ namespace DesafioProjetoHospedagem.Models
             {
                 // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
                 // *IMPLEMENTE AQUI*
+                    throw new Exception("Capacidade máxima atingida");
             }
         }
 
@@ -37,7 +40,18 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
             // *IMPLEMENTE AQUI*
-            return 0;
+            var numeroHospedes = 0;
+            if (Hospedes != null)
+            {
+                numeroHospedes = Hospedes.Count;
+                Console.WriteLine($"O número de hospedes é: {numeroHospedes}");
+                return numeroHospedes;
+            } else
+            {
+                Console.WriteLine("Não há hospedes cadastrados");
+                return numeroHospedes;
+            }
+            
         }
 
         public decimal CalcularValorDiaria()
@@ -45,16 +59,18 @@ namespace DesafioProjetoHospedagem.Models
             // TODO: Retorna o valor da diária
             // Cálculo: DiasReservados X Suite.ValorDiaria
             // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            var valorDiaria = DiasReservados * Suite.ValorDiaria;
+
 
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
             // *IMPLEMENTE AQUI*
-            if (true)
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                var desconto = valorDiaria * 0.1m;
+                valorDiaria = valorDiaria - desconto;
             }
 
-            return valor;
+            return valorDiaria;
         }
     }
 }
